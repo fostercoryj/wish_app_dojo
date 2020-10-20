@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Wishes</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container">
+            {% with messages = get_flashed_messages() %}    
+                {% if messages %}                           
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class='row'>
+            <div class="col-6">
+                <h2>Hello {{ session['name'] }}!  </h2>
+            </div>
+            <div class="col-1">    
+                <a href="/logout">Logout</a>
+            </div>
+            <div class="col-1">   
+                <a href="/wishes/new">
+                    <button>Make A Wish</button>
+                </a>
+            </div> 
+        </div>
+        <div class="row container">
+            <h4>Your wish list:</h4>
+            <table class="table table-striped border">
+                <thead>
+                    <tr>
+                        <th scope="col-3">Item</th>
+                        <th scope="col-2">Date Added</th>
+                        <th scope="col-3">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for x in wishes %}  
+                    <tr>
+                      <th scope="row">{{ x['wish'] }}</th>
+                      <td>{{ x['created_at'] }}</td>
+                      <td><a href="/remove/{{ x['id'] }}"> Remove </a>|<a href="/wishes/edit/{{ x['id'] }}"> Edit Wish</a>|<a href="/granted/{{ x ['id'] }}"> Granted </a></td>
+                    </tr>  
+                  {% endfor %}  
+                </tbody>
+              </table>
+        </div>
+        <div class="row container">
+            <h4>Granted Wishes:</h4>
+            <table class="table table-striped border">
+                <thead>
+                    <tr>
+                        <th scope="col">Item</th>
+                        <th scope="col">Wisher</th>
+                        <th scope="col">Date Added</th>
+                        <th scope="col">Date Granted</th>
+                    </tr>
+                </thead>
+                <tbody>
+                  {% for x in granted_wishes %}  
+                    <tr>
+                      <th scope="row">{{ x['wish'] }}</th>
+                      <td>{{ x['first_name'] }}</td>
+                      <td>{{ x['created_at'] }}</td>
+                      <td>{{ x['granted_at'] }}</td>
+                    </tr>  
+                  {% endfor %}  
+                </tbody>
+              </table>
+        </div>
+        
+    </div>
+</body>
+</html>
