@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>User Quotes</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container, row">
+            <div class="col-8">
+                <h5>Quotes From {{user_quotes[0]['first_name']}} {{user_quotes[0]['last_name']}}!</h5>
+            </div>
+            <div class="col-1">
+                <a href="/quotes">Back</a>
+            </div>
+            <div class="col-1">
+                <a href="/signout">
+                    <button>Logout</button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container, col-5">
+                    {% for x in user_quotes %}  
+                        <div class="container, border ">
+                            <p>{{x['author']}}: "{{x['quote']}}"</p>
+                            <div class="row">
+                                <div class="col">
+                                    {% if session['id'] == x['id'] %}
+                                        <a href="/delete_quote/{{x['quotes.id']}}">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+        </div>
+    </div>
+</body>
+</html>

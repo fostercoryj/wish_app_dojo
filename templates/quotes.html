@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>Quotes</title>
+</head>
+<body>
+    <div class="container">
+        <div class="container, row">
+            <div class="col-8">
+                <h5>Welcome {{session['fname']}} {{session['lname']}}!</h5>
+            </div>
+            <div class="col-1">
+                <a href="/myaccount">Edit My Account</a>
+            </div>
+            <div class="col-1">
+                <a href="/signout">
+                    <button>Logout</button>
+                </a>
+            </div>
+        </div>
+        <div class="row">
+            <div class="container, col-5">
+                <h5>Quotes</h5>
+                    {% for x in all_quotes %}  
+                        <div class="container, border ">
+                            <p>{{x['author']}}: "{{x['quote']}}"</p>
+                            <p>Posted by <a href="/user/{{x['id']}}">{{x['first_name']}} {{x['last_name']}}</a></p>
+                            <div class="row">
+                                <div class="col">
+                                    {% if session['id'] == x['id'] %}
+                                        <a href="/delete_quote/{{x['quotes.id']}}">Delete</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+            </div>
+            <div class="container, col-5">
+                <h5 class="">Add a Quote!</h5>
+                <div class="container">
+                    <form action="/add_quote" method="POST">
+                        <div class="row">
+                            <div class="col-2">
+                                <h5>Author</h5>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="text" rows="1" name="new_author" id="new_author" >
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-2">
+                                <h5>Quote</h5>
+                            </div>
+                            <div class="col">
+                                <input class="form-control" type="text" rows="10" name="new_quote" id="new_quote" >
+                            </div>
+                        </div>
+                        <div class="row">    
+                            <div class="col-6"></div>
+                            <div class="col-3">
+                                <a href="/add_quote">
+                                    <button>Submit</button>
+                                </a>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="row">
+                    {% with messages = get_flashed_messages() %}    
+                        {% if messages %}                           
+                            {% for message in messages %}            
+                                <p>{{message}}</p>                
+                            {% endfor %}
+                        {% endif %}
+                    {% endwith %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

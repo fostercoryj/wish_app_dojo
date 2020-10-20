@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <title>User Edit</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-8">
+                <h5>Edit My Account</h5>
+            </div>
+            <div class="col-1">
+                <a href="/quotes">Back</a>
+            </div>
+            <div class="col-1">
+                <a href="/signout">
+                    <button>Logout</button>
+                </a>
+            </div>
+        </div>
+        <div class="container">
+            {% with messages = get_flashed_messages() %}    
+                {% if messages %}                           
+                    {% for message in messages %}            
+                        <p>{{message}}</p>                
+                    {% endfor %}
+                {% endif %}
+            {% endwith %}
+        </div>
+        <div class="row, container">
+            <div class="col-4">
+                <form action="/edit_user" method="POST">
+                    <div class="row">
+                        <p class="col">First Name:</p>
+                        <input class="form-control, col" type="text" rows="2" name="edit_fname" id="edit_fname" value="{{user_info['first_name']}}">
+                    </div>
+                    <div class="row">
+                        <p class="col">Last Name:</p>
+                        <input class="form-control, col" type="text" rows="2" name="edit_lname" id="edit_lname" value="{{user_info['last_name']}}">
+                    </div>
+                    <div class="row">    
+                        <p class="col">Email:</p>
+                        <input class="form-control, col" type="text" rows="2" name="edit_email" id="edit_email" value="{{user_info['email']}}">
+                    </div>
+                    <div class="row">
+                        <div class="col"></div>
+                        <div class="col">
+                            <input type='submit' value='Update'>
+                        </div>    
+                    </div>    
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
